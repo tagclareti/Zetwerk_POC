@@ -1,0 +1,13 @@
+{
+  "FreshdeskValidation": {
+    "schema": {
+      "method": "GET",
+      "host": "techaffinityinc.freshdesk.com",
+      "path": "/api/v2/tickets",
+      "headers": {
+        "Authorization": "Basic <%= context.key %>",
+        "Content-Type": "application/json"
+      }
+    }
+  }
+}
