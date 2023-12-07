@@ -7,12 +7,18 @@ async function init() {
   client.events.on("app.activated", renderText);
 }
 
-async function renderText() {
-  const textElement = document.getElementById("apptext");
-  const contactData = await client.data.get("contact");
-  const {
-    contact: { name },
-  } = contactData;
+async function renderText() {}
 
-  textElement.innerHTML = `Ticket is created by ${name}`;
-}
+$("#show_checklist").click(async function () {
+  console.log("Clicked");
+  try {
+    let data = await client.interface.trigger("showModal", {
+      title: "List of Guides",
+      template: "modal.html",
+    });
+    console.log(data); // success message
+  } catch (error) {
+    // failure operation
+    console.error(error);
+  }
+});

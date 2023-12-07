@@ -1,5 +1,7 @@
 init();
 
+let final_tree;
+
 async function init() {
   client = await app.initialized();
   client.events.on("app.activated", builtHomeHTMLContent);
@@ -26,7 +28,7 @@ function Tree(name, type, child) {
   this.name = name;
   this.children = child || [];
   this.type = type;
-  this.addNode = function (parent, type) {
+  this.addNode = function (parent) {
     this.children = parent;
   };
   this.addChild = function (parentName, type) {
@@ -90,5 +92,26 @@ const HTMLContentChild = async (randomdigit) => {
 
   tree.children[0].children[1].addChild("Request Aadhar", "text"); // add this tree under Aadhar->No->Request Aadhar
 
-  console.log(tree);
+  // console.log(tree);
+  final_tree = tree;
+  generateUI(tree);
+};
+
+const generateUI = async (tree) => {
+  $("#checklist").hide();
+  console.log(tree, "lklklkll");
+  const checklist_header = `<p onClick=showGuide()>${tree?.name}</p>`;
+  $(checklist_header).appendTo("#checklist_ui");
+};
+
+const showGuide = async () => {
+  console.log(final_tree?.children);
+
+  let checklist_level_1;
+  final_tree?.children.map((e, i) => {
+    console.log(e?.name);
+    console.log(i);
+    checklist_level_1 = `<p id=${i}>${e?.name}</p>`;
+  });
+  $(checklist_level_1).appendTo("#checklist_ui");
 };
